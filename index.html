@@ -66,7 +66,7 @@
 
         <div class="bg-gray-800 w-full flex justify-center flex-col px-0 lg:px-16 2xl:px-64">
             <div class="about-section lg:flex-row">
-                <div class="w-full h-72 relative overflow-hidden">
+                <div class="w-full h-72 relative overflow-hidden animate-left">
                     <img src="media/b.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
@@ -81,7 +81,7 @@
     
             <div class="about-section lg:flex-row-reverse">
                 <div class="w-full h-72 relative overflow-hidden">
-                    <img src="https://taogroup.com/wp-content/uploads/2023/05/Johnny-Stephens-Photography-38-0E8A6962-Edit-scaled.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                    <img src="media/c.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -95,7 +95,7 @@
     
             <div class="about-section lg:flex-row">
                 <div class="w-full h-72 relative overflow-hidden">
-                    <img src="https://taogroup.com/wp-content/uploads/2023/05/Johnny-Stephens-Photography-38-0E8A6962-Edit-scaled.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                    <img src="media/a.png" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -203,6 +203,21 @@
                 })
 
             }
+
+            let t0 = anime.timeline({
+                loop: true,
+                autoplay: true
+            });
+
+            t0.add({
+                targets: document.querySelectorAll(".animate-left"),
+                duration: 700,
+                trranslateX: [-300, 0],
+                easing: "easeOutExpo",
+                endDelay: 0
+            });
+
+            console.log(document.querySelectorAll(".animate-left"));
 
             function scrollToSmoothly(pos, time) {
                 var currentPos = window.pageYOffset;
