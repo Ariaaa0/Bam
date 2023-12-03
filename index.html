@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="dist/output.css" rel="stylesheet">
+        <link href="../dist/output.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
     
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     
         <title>BAM</title>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="./jquery.inview.min.js"></script>
     </head>
 
     <body dir="rtl" class=" box-border overflow-x-hidden">
@@ -81,7 +84,7 @@
     
             <div class="about-section lg:flex-row-reverse">
                 <div class="w-full h-72 relative overflow-hidden">
-                    <img src="media/c.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                    <img src="media/c.jpg" class="w-full absolute animate-right -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -95,7 +98,7 @@
     
             <div class="about-section lg:flex-row">
                 <div class="w-full h-72 relative overflow-hidden">
-                    <img src="media/a.png" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                    <img src="media/a.png" class="w-full absolute animate-left -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -109,7 +112,7 @@
     
             <div class="about-section lg:flex-row-reverse">
                 <div class="w-full h-72 relative overflow-hidden">
-                    <img src="https://taogroup.com/wp-content/uploads/2023/05/Johnny-Stephens-Photography-38-0E8A6962-Edit-scaled.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                    <img class="animate-left" src="https://taogroup.com/wp-content/uploads/2023/05/Johnny-Stephens-Photography-38-0E8A6962-Edit-scaled.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -180,41 +183,55 @@
         </div>
 
         <script>
-            var res = document.querySelectorAll('.fade-in');
-            for (var i = 0; i < res.length; i++){
-                let timeline = anime.timeline({
+            let timeline = anime.timeline({
+                loop: false,
+                autoplay: true
+            });
+
+            timeline.add({
+                duration: 400,
+                endDelay: 0
+            })
+
+            timeline.add({
+                targets: ".fade-in",
+                translateY: [70,0],
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1700,
+                delay: (el, i) => 11*i,
+                endDelay: 0
+            })
+
+            function hasClass(element, className) {
+                return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+            }
+
+            $(".animate-left").on("inview", function(t) {
+                let t0 = anime.timeline({
                     loop: false,
                     autoplay: true
                 });
 
-                timeline.add({
-                    duration: 400,
-                    endDelay: 0
-                })
-
-                timeline.add({
-                    targets: res,
-                    translateY: [70,0],
-                    opacity: [0,1],
-                    easing: "easeOutExpo",
-                    duration: 1700,
-                    delay: (el, i) => 11*i,
-                    endDelay: 0
-                })
-
-            }
-
-            let t0 = anime.timeline({
-                loop: true,
-                autoplay: true
-            });
-
-            t0.add({
-                targets: document.querySelectorAll(".animate-left"),
-                duration: 700,
-                trranslateX: [-300, 0],
-                easing: "easeOutExpo",
-                endDelay: 0
+                if (hasClass(t.currentTarget, "animate-left")) {
+                    t0.add({
+                        targets: t.currentTarget,
+                        duration: 700,
+                        translateX: [1000, 0],
+                        opacity: [0,1],
+                        easing: "easeOutExpo",
+                        endDelay: 0
+                    });
+                } else if (hasClass(t.currentTarget, "animate-right")) {
+                    t0.add({
+                        targets: t.currentTarget,
+                        duration: 700,
+                        translateX: [-1000, 0],
+                        opacity: [0,1],
+                        easing: "easeOutExpo",
+                        endDelay: 0
+                    });
+                }
             });
 
             console.log(document.querySelectorAll(".animate-left"));
