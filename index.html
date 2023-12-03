@@ -83,8 +83,8 @@
             </div>
     
             <div class="about-section lg:flex-row-reverse">
-                <div class="w-full h-72 relative overflow-hidden">
-                    <img src="media/c.jpg" class="w-full absolute animate-right -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                <div class="w-full h-72 relative overflow-hidden animate-right">
+                    <img src="media/c.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -97,8 +97,8 @@
             </div>
     
             <div class="about-section lg:flex-row">
-                <div class="w-full h-72 relative overflow-hidden">
-                    <img src="media/a.png" class="w-full absolute animate-left -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                <div class="w-full h-72 relative overflow-hidden animate-left">
+                    <img src="media/a.png" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -111,8 +111,8 @@
             </div>
     
             <div class="about-section lg:flex-row-reverse">
-                <div class="w-full h-72 relative overflow-hidden">
-                    <img class="animate-left" src="https://taogroup.com/wp-content/uploads/2023/05/Johnny-Stephens-Photography-38-0E8A6962-Edit-scaled.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
+                <div class="w-full h-72 relative overflow-hidden animate-right">
+                    <img src="https://taogroup.com/wp-content/uploads/2023/05/Johnny-Stephens-Photography-38-0E8A6962-Edit-scaled.jpg" class="w-full absolute -translate-y-1/2 top-32 bg-cover" alt="" srcset="">
                 </div>
                 <div class="bg-accent w-full mb-12 p-8">
                     <div class="text-sm font-thin tracking-widest">غذاهای ایتالیایی با طعم ساحلی</div>
@@ -207,32 +207,56 @@
                 return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
             }
 
-            $(".animate-left").on("inview", function(t) {
+            $(".animate-left").not(".animated").on("inview", function(t) {
                 let t0 = anime.timeline({
                     loop: false,
                     autoplay: true
                 });
 
-                if (hasClass(t.currentTarget, "animate-left")) {
+                t0.add({
+                    duration: 400,
+                    endDelay: 0
+                })
+
+                var target = t.currentTarget;
+                if (!hasClass(target, "animated")) {
                     t0.add({
-                        targets: t.currentTarget,
+                        targets: target,
                         duration: 700,
-                        translateX: [1000, 0],
-                        opacity: [0,1],
-                        easing: "easeOutExpo",
-                        endDelay: 0
-                    });
-                } else if (hasClass(t.currentTarget, "animate-right")) {
-                    t0.add({
-                        targets: t.currentTarget,
-                        duration: 700,
-                        translateX: [-1000, 0],
+                        translateX: [300, 0],
                         opacity: [0,1],
                         easing: "easeOutExpo",
                         endDelay: 0
                     });
                 }
+                target.classList.add("animated");
             });
+
+            $(".animate-right").not(".animated").on("inview", function(t) {
+                let t0 = anime.timeline({
+                    loop: false,
+                    autoplay: true
+                });
+
+                t0.add({
+                    duration: 400,
+                    endDelay: 0
+                })
+
+                var target = t.currentTarget;
+                if (!hasClass(target, "animated")) {
+                    t0.add({
+                        targets: target,
+                        duration: 700,
+                        translateX: [-300, 0],
+                        opacity: [0,1],
+                        easing: "easeOutExpo",
+                        endDelay: 0
+                    });
+                }
+                target.classList.add("animated");
+            });
+                    
 
             console.log(document.querySelectorAll(".animate-left"));
 
